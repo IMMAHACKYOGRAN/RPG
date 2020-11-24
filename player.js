@@ -5,7 +5,11 @@ class Player {
         this.size = size;
     }
 
+    update(url) {
+        this.draw(url);
+    }
+
     draw(url) {
-        ctx.drawImage(url, this.x, this.y);
+        ctx.drawImage(url, this.x + viewport.offset[0], this.y + viewport.offset[1]);
     }
 }
