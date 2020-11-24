@@ -1,10 +1,10 @@
 {
-  "name": "CPS Tester",
+  "name": "RPG",
   "version": "1.0",
   "manifest_version": 2,
 
   "browser_action": {
     "default_popup": "index.html",
-    "default_title": "CPS Tester"
+    "default_title": "RPG"
   }
 }

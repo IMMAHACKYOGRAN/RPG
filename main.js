@@ -6,51 +6,33 @@ canvas.height = 352; // Your height here!
 var width = canvas.width,
     height = canvas.height;
 
+var player = new Player(160, 160, 32);
+
 var scaled_size = 32;
-var sprite_size = 16;
+var sprite_size = 32;
 var columns     = 24;
 var rows        = 24;
-var map = [
-    3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
-    3,2,1,1,0,0,3,3,3,2,1,0,3,0,0,0,3,0,0,1,2,2,2,3,
-    3,1,1,0,0,0,3,3,3,1,0,0,3,0,2,0,3,0,1,1,2,1,1,3,
-    3,0,0,0,0,0,3,3,2,0,0,0,3,0,0,0,3,1,2,2,2,1,1,3,
-    3,1,1,0,0,0,3,1,1,0,0,0,3,3,3,0,1,1,2,2,1,0,0,3,
-    3,0,0,1,2,1,3,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,3,
-    3,0,1,2,2,1,3,0,1,0,0,0,0,0,0,0,0,1,0,1,0,1,0,3,
-    3,0,0,1,1,1,3,1,1,1,0,1,0,0,0,3,0,0,3,3,3,0,0,3,
-    3,0,0,0,1,1,3,3,3,3,3,3,3,3,3,3,0,0,3,3,3,3,3,3,
-    3,3,0,3,3,3,3,3,3,3,3,1,0,0,0,3,0,0,3,3,3,2,1,3,
-    3,3,1,0,0,1,3,3,3,3,3,0,0,0,0,0,0,1,1,0,1,1,0,3,
-    3,3,3,3,1,1,3,3,3,3,3,1,0,0,0,0,1,1,2,2,1,0,0,3,
-    3,3,3,3,0,1,0,0,3,3,1,0,0,1,1,2,1,2,0,1,2,1,0,3,
-    3,2,3,0,0,0,1,0,1,1,0,0,1,0,0,2,1,2,2,1,2,1,1,3,
-    3,1,1,1,0,0,0,0,1,1,0,0,0,1,1,0,2,1,1,1,2,0,1,3,
-    3,1,1,1,1,1,0,1,3,3,1,0,0,0,1,1,1,2,2,2,1,1,2,3,
-    3,0,0,0,1,0,1,1,3,3,1,0,0,0,0,1,0,1,1,1,1,1,1,3,
-    3,1,1,0,0,0,0,3,3,3,1,1,2,2,0,0,3,3,3,3,3,3,3,3,
-    3,0,1,0,1,0,1,3,3,3,3,2,2,2,2,1,3,1,0,0,0,0,1,3,
-    3,1,0,0,0,1,3,3,3,2,1,0,1,2,0,1,0,0,0,1,1,0,0,3,
-    3,2,0,0,0,0,3,3,3,3,1,1,0,1,1,0,3,0,1,2,2,1,0,3,
-    3,3,1,0,1,1,3,3,3,3,3,3,0,0,1,1,3,0,0,1,1,0,0,3,
-    3,3,1,1,2,3,3,3,3,3,3,3,1,0,1,2,3,1,0,0,0,0,1,3,
-    3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3];
+var playerWalk1 = new Image();
+playerWalk1.src = './textures/entities/player/player-walk1.png';
 
 function update() {
+    renderMap();
+    player.draw(playerWalk1);
     requestAnimationFrame(update);
 }
 
 var tile_sheet = new Image();
-tile_sheet.src = './textures/tileset.png';
+tile_sheet.src = './textures/tiles/tileset.png';
 function renderMap() {
     for (let x = 0; x < columns; x ++) {
 
         for (let y = 0; y < rows; y ++) {
 
-          let value = map[y * columns + x];
-          let tile_x = x * scaled_size;
-          let tile_y = y * scaled_size;
-          ctx.drawImage(tile_sheet, value * sprite_size, 0, sprite_size, sprite_size, tile_x, tile_y, scaled_size, scaled_size);
+            ctx.imagesmoothingenabled = false;
+            let value = testMap[y * columns + x]; 
+            let tile_x = x * scaled_size;
+            let tile_y = y * scaled_size;
+            ctx.drawImage(tile_sheet, value * sprite_size, 0, sprite_size, sprite_size, tile_x, tile_y, 32, 32);
 
         }
     }
@@ -58,5 +40,10 @@ function renderMap() {
 
 window.addEventListener('load', () => {
     update();
-    renderMap();
+});
+
+document.addEventListener('keydown', e => {
+    if(e.code === 37) {
+        player.x -= 5;
+    }
 });
