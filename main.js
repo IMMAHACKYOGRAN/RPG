@@ -9,7 +9,7 @@ canvas.height = 500//352; // Your height here!
 var width = canvas.width,
     height = canvas.height;
 
-var debugMode = false;
+var debugMode = true;
 
 var scaled_size = 32;
 var sprite_size = 32;

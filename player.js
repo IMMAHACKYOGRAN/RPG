@@ -3,6 +3,7 @@ class Player {
         this.x = x;
         this.y = y;
         this.size = size;
+        this.inventory = [null, null, null, null, null];
     }
 
     update(url) {
